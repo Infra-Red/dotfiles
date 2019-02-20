@@ -1,0 +1,4 @@
+let NERDTreeShowHidden = 1
+let g:auto_save = 1
+
+colorscheme dracula

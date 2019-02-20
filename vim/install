@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -euf -o pipefail
+
+root_dir="$(cd "$(dirname "$0")/.." && pwd)"
+
+# shellcheck source=../helpers/utils.sh
+source "$root_dir/helpers/utils.sh"
+
+pip3 install --upgrade pip
+pip3 install --upgrade neovim
+
+vim_dir="${HOME}/.vim"
+
+mkdir -p "${vim_dir}"
+
+echo "Updating vimfiles..."
+pushd "${vim_dir}"
+  git pull || git clone https://github.com/luan/vimfiles.git .
+popd
+
+echo "Installing Vimfiles..."
+"${vim_dir}"/install

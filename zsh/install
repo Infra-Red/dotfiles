@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -euf -o pipefail
+
+root_dir="$(cd "$(dirname "$0")/.." && pwd)"
+
+# shellcheck source=../helpers/utils.sh
+source "$root_dir/helpers/utils.sh"
+
+# install pure
+npm install --global pure-prompt
+
+# install oh my zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+# switch to zsh
+grep "$(command -v zsh)" /etc/shells >/dev/null || sudo sh -c "echo $(command -v zsh) >> /etc/shells"
+finger "$USER" | grep "$(command -v zsh)" >/dev/null || sudo chsh -s "$(command -v zsh)" "$(whoami)"

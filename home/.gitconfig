@@ -1,0 +1,35 @@
+[alias]
+  br = branch
+  ci = commit -S -v
+  co = checkout
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  st = status
+  # list aliases
+  la = "!git config -l | grep alias | cut -c 7-"
+
+[user]
+  signingkey = AB43CD11
+  name = Andrei Krasnitski
+  email = me@infra-red.xyz
+
+[core]
+  editor = nvim
+
+[push]
+  default = simple
+
+[transfer]
+  fsckobjects = true
+
+[gpg]
+  program = /usr/local/MacGPG2/bin/gpg2
+
+[commit]
+  gpgsign = true
+
+[tag]
+  forceSignAnnotated = true
+
+[url "git@github.com:"]
+  pushInsteadOf = https://github.com/
+  pushInsteadOf = git://github.com/

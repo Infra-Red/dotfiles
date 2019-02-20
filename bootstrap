@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -euf -o pipefail
+
+root_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# shellcheck source=helpers/utils.sh
+source "$root_dir/helpers/utils.sh"
+
+if ! is_macos; then
+  echo "Unrecognized system uname: $(uname -s) - exiting"
+else
+  "$root_dir"/homebrew/install
+  "$root_dir"/vim/install
+  "$root_dir"/zsh/install
+  "$root_dir"/homeshick/install
+fi

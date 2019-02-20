@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -euf -o pipefail
+
+root_dir="$(cd "$(dirname "$0")/.." && pwd)"
+
+# shellcheck source=../helpers/utils.sh
+source "$root_dir/helpers/utils.sh"
+
+if ! is_macos -o ! command_exists homeshick; then
+  echo "Skipped: missing homeshick"
+  exit 1
+fi
+
+# defines the homeshick function
+HOMESHICK_DIR=/usr/local/opt/homeshick
+HOMESHICK_REPO=Infra-Red/dotfiles
+source "/usr/local/opt/homeshick/homeshick.sh"
+
+echo "Install, pull and link castlers."
+homeshick list | grep -q "$(echo $HOMESHICK_REPO | cut -d=/ -f2)" || homeshick --batch clone "$HOMESHICK_REPO"
+homeshick --batch --force -f pull
+homeshick --batch --force link
