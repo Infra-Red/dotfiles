@@ -4,9 +4,10 @@ export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME=""
 
 # oh-my-zsh
-plugins=(git go zsh-syntax-highlighting)
+plugins=(git go)
 
 source $ZSH/oh-my-zsh.sh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Basics
 : ${HOME=~}
