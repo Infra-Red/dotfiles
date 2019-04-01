@@ -65,7 +65,7 @@ end
 -- Enters launch mode.
 hs.hotkey.bind({ 'cmd' }, 'e', function()
   launchMode:enter()
-  appLauncherAlertWindow = hs.alert.show('App Launcher Mode', 'infinite')
+  appLauncherAlertWindow = hs.alert.show('App Launcher Mode:\na - Calendar\nb - Google Chrome\ne - Spark\ng - Telegram\nl - Trello\nm - iTunes\nn - Bear\nr - Reminders\ns - Slack\nt - Terminal\nw - Tweetbot', 'infinite')
 end)
 
 -- When in launch mode, hitting cmd+e again leaves it
