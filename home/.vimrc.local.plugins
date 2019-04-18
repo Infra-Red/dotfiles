@@ -1,1 +1,2 @@
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'nvie/vim-flake8'
