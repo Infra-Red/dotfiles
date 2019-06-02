@@ -65,7 +65,7 @@ end
 -- Enters launch mode.
 hs.hotkey.bind({ 'cmd' }, 'e', function()
   launchMode:enter()
-  appLauncherAlertWindow = hs.alert.show('App Launcher Mode:\na - Calendar\nb - Google Chrome\ne - Spark\ng - Telegram\nl - Trello\nm - iTunes\nn - Bear\nr - Reminders\ns - Slack\nt - Terminal\nw - Tweetbot', 'infinite')
+  appLauncherAlertWindow = hs.alert.show('App Launcher Mode:\na - Calendar\nb - Google Chrome\ne - Spark\ng - Telegram\nl - Trello\nm - iTunes\ny - Spotify\nn - Bear\nr - Wunderlist\ns - Slack\nt - Terminal\nw - Tweetbot\ni - GoLand', 'infinite')
 end)
 
 -- When in launch mode, hitting cmd+e again leaves it
@@ -77,11 +77,13 @@ launchMode:bind({}, 'b',  function() switchToApp('Google Chrome.app') end)
 launchMode:bind({}, 'e',  function() switchToApp('Spark.app') end)
 launchMode:bind({}, 'f',  function() switchToApp('Safari.app') end)
 launchMode:bind({}, 'g',  function() switchToApp('Telegram Desktop.app') end)
+launchMode:bind({}, 'i',  function() switchToApp('GoLand.app') end)
 launchMode:bind({}, 'l',  function() switchToApp('Trello.app') end)
 launchMode:bind({}, 'm',  function() switchToApp('iTunes.app') end)
 launchMode:bind({}, 'n',  function() switchToApp('Bear.app') end)
-launchMode:bind({}, 'r',  function() switchToApp('Reminders.app') end)
+launchMode:bind({}, 'r',  function() switchToApp('Wunderlist.app') end)
 launchMode:bind({}, 's',  function() switchToApp('Slack.app') end)
 launchMode:bind({}, 't',  function() switchToApp('Alacritty.app') end)
 launchMode:bind({}, 'w',  function() switchToApp('Tweetbot.app') end)
+launchMode:bind({}, 'y',  function() switchToApp('Spotify.app') end)
 launchMode:bind({}, '`',  function() hs.reload(); leaveMode() end)
