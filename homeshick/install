@@ -18,6 +18,6 @@ HOMESHICK_REPO=Infra-Red/dotfiles
 source "/usr/local/opt/homeshick/homeshick.sh"
 
 echo "Install, pull and link castlers."
-homeshick list | grep -q "$(echo $HOMESHICK_REPO | cut -d=/ -f2)" || homeshick --batch clone "$HOMESHICK_REPO"
+homeshick list | grep -q "$(echo $HOMESHICK_REPO | cut -d '/' -f2)" || homeshick --batch clone "$HOMESHICK_REPO"
 homeshick --batch --force -f pull
 homeshick --batch --force link
