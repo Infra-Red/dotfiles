@@ -8,7 +8,8 @@ root_dir="$(cd "$(dirname "$0")/.." && pwd)"
 source "$root_dir/helpers/utils.sh"
 
 pip3 install --upgrade pip
-pip3 install --upgrade neovim
+pip3 uninstall noevim pynvim
+pip3 install --upgrade pynvim
 
 vim_dir="${HOME}/.vim"
 
