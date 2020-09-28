@@ -4,7 +4,7 @@ export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME=""
 
 # oh-my-zsh
-plugins=(git go)
+plugins=(git golang thefuck pyenv kubectl)
 
 source $ZSH/oh-my-zsh.sh
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -27,10 +27,16 @@ source "/usr/local/opt/homeshick/homeshick.sh"
 
 # General aliases
 alias ll='ls -alh'
+alias crf='credhub find -n'
+alias crg='credhub get -n'
+
+export LPASS_AGENT_TIMEOUT=14400
 
 # npm i -g pure-prompt
 #PURE_GIT_PULL=0
 autoload -U promptinit; promptinit
+# turn on git stash status
+zstyle :prompt:pure:git:stash show yes
 prompt pure
 PROMPT='%(1j.[%j] .)%(?.%F{magenta}.%F{red})${PURE_PROMPT_SYMBOL:-❯}%f '
 
@@ -38,6 +44,15 @@ PROMPT='%(1j.[%j] .)%(?.%F{magenta}.%F{red})${PURE_PROMPT_SYMBOL:-❯}%f '
 export GOPATH="$HOME"/workspace/go
 export GOROOT="$(greadlink -nf /usr/local/opt/go/libexec)"
 export PATH="$GOPATH/bin:${GOROOT}/bin:$PATH"
+
+# Ruby
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+
+# Python
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # Vim
 export EDITOR=nvim
@@ -133,3 +148,36 @@ test_terminal_colors_fonts() {
       printf "\n";
   }'
 }
+
+get_password_from_credhub() {
+  local bosh_manifest_password_variable_name=$1
+  echo "$(credhub find -j -n ${bosh_manifest_password_variable_name} | jq -r '.credentials[].name' | xargs credhub get -j -n | jq -r '.value')"
+}
+
+concourse_login() {
+  local concourse_team_name=$1
+  username="$(lpass show "Mendix Creds" --notes | yq r - concourse.username)"
+  password="$(lpass show "Mendix Creds" --notes | yq r - concourse.password)"
+  fly -t mendix login -u "$username" -p "$password" -n "$concourse_team_name"
+}
+
+cf_login() {
+  local cf_target=$1
+  api="$(lpass show "Mendix Creds" --notes | yq r - "cf.$cf_target.api")"
+  cf login -a "$api" --sso
+}
+
+bbl_env() {
+  local bosh_env=$1
+  cd "$HOME/workspace/mendix/envs/$bosh_env"
+  eval "$(bbl print-env)"
+}
+
+alias ka='f(){ kubectl "$@" --all-namespaces | grep -v kube-system; unset -f f; }; f'
+
+# FortiVPN
+source "$HOME/.config/openfortivpn/openfortivpn.sh"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/mc mc
+source <(fly completion --shell zsh)
