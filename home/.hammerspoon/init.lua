@@ -65,7 +65,7 @@ end
 -- Enters launch mode.
 hs.hotkey.bind({ 'cmd' }, 'e', function()
   launchMode:enter()
-  appLauncherAlertWindow = hs.alert.show('App Launcher Mode:\na - Calendar\nb - Firefox\ne - Thunderbird\ng - Telegram\ny - Spotify\nn - Bear\ns - Slack\nt - Terminal', 'infinite')
+  appLauncherAlertWindow = hs.alert.show('App Launcher Mode:\na - Calendar\nb - Browser\ne - Mail\ng - Telegram\ny - Spotify\nn - Bear\ns - Slack\nt - Terminal', 'infinite')
 end)
 
 -- When in launch mode, hitting cmd+e again leaves it
@@ -74,10 +74,11 @@ launchMode:bind({ 'cmd' }, 'e', function() leaveMode() end)
 -- Mapped keys
 launchMode:bind({}, 'a',  function() switchToApp('Calendar.app') end)
 launchMode:bind({}, 'b',  function() switchToApp('Firefox.app') end)
-launchMode:bind({}, 'e',  function() switchToApp('Thunderbird.app') end)
+launchMode:bind({}, 'e',  function() switchToApp('Mail.app') end)
 launchMode:bind({}, 'g',  function() switchToApp('Telegram.app') end)
 launchMode:bind({}, 'n',  function() switchToApp('Bear.app') end)
 launchMode:bind({}, 's',  function() switchToApp('Slack.app') end)
 launchMode:bind({}, 't',  function() switchToApp('Alacritty.app') end)
 launchMode:bind({}, 'y',  function() switchToApp('Spotify.app') end)
+launchMode:bind({}, 'z',  function() switchToApp('zoom.us.app') end)
 launchMode:bind({}, '`',  function() hs.reload(); leaveMode() end)

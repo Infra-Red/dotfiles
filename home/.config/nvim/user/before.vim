@@ -3,5 +3,4 @@
 " let g:fzf_command_prefix = 'Fuzzy'
 " ...
 set shell=/usr/local/bin/zsh
-" let g:airline_powerline_fonts = 1
-let g:autosave = 1
+" let g:autosave = 1

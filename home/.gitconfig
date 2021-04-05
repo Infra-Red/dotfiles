@@ -14,6 +14,7 @@
 
 [core]
   editor = nvim
+  excludesfile = /Users/Andrei.Krasnitski/.gitignore_global
 
 [push]
   default = simple
@@ -26,6 +27,7 @@
 
 [commit]
   gpgsign = true
+  template = ~/.gitmessage
 
 [tag]
   forceSignAnnotated = true
@@ -33,3 +35,9 @@
 [url "git@github.com:"]
   pushInsteadOf = https://github.com/
   pushInsteadOf = git://github.com/
+
+[filter "lfs"]
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f

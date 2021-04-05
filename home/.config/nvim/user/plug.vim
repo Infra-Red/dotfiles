@@ -4,14 +4,10 @@
 " ...
 
 " Python {
-Plug 'nvie/vim-flake8'
-Plug 'psf/black', { 'tag': '20.8b1' }
+" Plug 'nvie/vim-flake8'
+" Plug 'psf/black', { 'tag': '20.8b1' }
 " Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-Plug 'lambdalisue/vim-pyenv', { 'for': 'python' }
-" }
-
-" Themes {
-Plug 'dracula/vim', { 'as': 'dracula' }
+" Plug 'lambdalisue/vim-pyenv', { 'for': 'python' }
 " }
 
 Plug 'avakhov/vim-yaml'
@@ -23,3 +19,14 @@ Plug 'kamykn/spelunker.vim'
 " Ytt
 Plug 'cappyzawa/starlark.vim'
 Plug 'cappyzawa/ytt.vim'
+
+" Go {
+Plug 'ivy/vim-ginkgo'
+" }
+
+" Toml support
+Plug 'cespare/vim-toml'
+
+" Themes {
+Plug 'arcticicestudio/nord-vim'
+" }

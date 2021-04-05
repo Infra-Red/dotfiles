@@ -156,14 +156,20 @@ get_password_from_credhub() {
 
 concourse_login() {
   local concourse_team_name=$1
-  username="$(lpass show "Mendix Creds" --notes | yq r - concourse.username)"
-  password="$(lpass show "Mendix Creds" --notes | yq r - concourse.password)"
+
+  local note
+  note="$(bw get item 0ac1852b-1165-47c1-a39e-aca500e70235 | jq -r '.notes')"
+
+  local username
+  username="$(yq -r '.concourse.username' <<<"$note")"
+  local password
+  password="$(yq -r '.concourse.password' <<<"$note")"
   fly -t mendix login -u "$username" -p "$password" -n "$concourse_team_name"
 }
 
 cf_login() {
   local cf_target=$1
-  api="$(lpass show "Mendix Creds" --notes | yq r - "cf.$cf_target.api")"
+  api="$(bw get item 0ac1852b-1165-47c1-a39e-aca500e70235 | jq -r '.notes' | yq -r ".cf.\"$cf_target\".api")"
   cf login -a "$api" --sso
 }
 
@@ -181,3 +187,4 @@ source "$HOME/.config/openfortivpn/openfortivpn.sh"
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/mc mc
 source <(fly completion --shell zsh)
+export PATH="/usr/local/opt/go@1.15/bin:$PATH"

@@ -9,8 +9,10 @@
 " let g:lightline['colorscheme'] = 'wombat'
 " ...
 
-" colorscheme dracula
-colorscheme base16-monokai
+if executable('fd')
+  let $FZF_DEFAULT_COMMAND = 'fd --exclude={.git,.idea,.vscode,.sass-cache,node_modules,build} --type f --hidden'
+endif
 
-" disable spellcheck
-let g:enable_spelunker_vim = 0
+let $PATH = g:go_bin_path . ':' . $PATH
+
+colorscheme base16-material
