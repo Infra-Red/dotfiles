@@ -1,10 +1,20 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
-ZSH_THEME=""
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# Python
+eval "$(pyenv init --path)"
 
 # oh-my-zsh
-plugins=(git golang thefuck pyenv kubectl)
+plugins=(direnv jump git golang pyenv)
 
 source $ZSH/oh-my-zsh.sh
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -30,35 +40,19 @@ alias ll='ls -alh'
 alias crf='credhub find -n'
 alias crg='credhub get -n'
 
-export LPASS_AGENT_TIMEOUT=14400
-
-# npm i -g pure-prompt
-#PURE_GIT_PULL=0
-autoload -U promptinit; promptinit
-# turn on git stash status
-zstyle :prompt:pure:git:stash show yes
-prompt pure
-PROMPT='%(1j.[%j] .)%(?.%F{magenta}.%F{red})${PURE_PROMPT_SYMBOL:-❯}%f '
-
 # Go
 export GOPATH="$HOME"/workspace/go
 export GOROOT="$(greadlink -nf /usr/local/opt/go/libexec)"
 export PATH="$GOPATH/bin:${GOROOT}/bin:$PATH"
+export PATH="/usr/local/opt/go@1.15/bin:$PATH"
 
 # Ruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
-
-# Python
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 
 # Vim
 export EDITOR=nvim
 alias vim=nvim
 alias vimdiff="nvim -d"
-
 
 # fzf settings – enables fuzzy search with "**" like `nvim **`
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -72,6 +66,11 @@ fi
 
 # for gpg
 export GPG_TTY=$(tty)
+
+# todo
+export TODO="${HOME}/Documents/todo"
+function todo() { if [[ "$#" -eq 0 ]]; then cat "$TODO"; else echo "• $*" >>"$TODO"; fi }
+function todone() { sed -i -e "/$*/d" "$TODO"; }
 
 # use fd as default find command to traverse the file system while respecting .gitignore
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
@@ -115,15 +114,7 @@ else
     esac
 fi
 
-# jump for easier dir traversal
-if [ -x "$(command -v jump)" ]; then
-    eval "$(jump shell)"
-fi
-
 # direnv
-if [ -x "$(command -v direnv)" ]; then
-    eval "$(direnv hook zsh)"
-fi
 alias da="direnv allow"
 
 # functions
@@ -185,6 +176,7 @@ alias ka='f(){ kubectl "$@" --all-namespaces | grep -v kube-system; unset -f f; 
 source "$HOME/.config/openfortivpn/openfortivpn.sh"
 
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/mc mc
 source <(fly completion --shell zsh)
-export PATH="/usr/local/opt/go@1.15/bin:$PATH"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

@@ -24,15 +24,15 @@ scrolling:
 
 font:
   normal:
-    family: "JetBrains Mono"
+    family: Iosevka Term
     style: Regular
 
   bold:
-    family: "JetBrains Mono"
+    family: Iosevka Term
     style: Bold
 
   italic:
-    family: "JetBrains Mono"
+    family: Iosevka Term
     style: Italic
 
   size: 16.0
@@ -54,64 +54,36 @@ debug:
 
 draw_bold_text_with_bright_colors: true
 
-# Colors (Monokai Dark)
+# Colors (Material Theme)
 colors:
   # Default colors
   primary:
-    background: '#272822'
-    foreground: '#F8F8F2'
+    background: '#263238'
+    foreground: '#eeffff'
 
   # Normal colors
   normal:
-   black:   '#272822'
-   red:     '#F92672'
-   green:   '#A6E22E'
-   yellow:  '#F4BF75'
-   blue:    '#66D9EF'
-   magenta: '#AE81FF'
-   cyan:    '#A1EFE4'
-   white:   '#F8F8F2'
+    black: '#000000'  # Arbitrary
+    red: '#e53935'
+    green: '#91b859'
+    yellow: '#ffb62c'
+    blue: '#6182b8'
+    magenta: '#ff5370'  # Dark pink of the original material theme
+    cyan: '#39adb5'
+    white: '#a0a0a0'  # Arbitrary
 
   # Bright colors
   bright:
-   black:   '#75715E'
-   red:     '#F92672'
-   green:   '#A6E22E'
-   yellow:  '#F4BF75'
-   blue:    '#66D9EF'
-   magenta: '#AE81FF'
-   cyan:    '#A1EFE4'
-   white:   '#F9F8F5'
-# Colors (Dracula)
-# colors:
-#   # Default colors
-#   primary:
-#     background: '0x282a36'
-#     foreground: '0xf8f8f2'
-# 
-#   # Normal colors
-#   normal:
-#     black:   '0x000000'
-#     red:     '0xff5555'
-#     green:   '0x50fa7b'
-#     yellow:  '0xf1fa8c'
-#     blue:    '0xcaa9fa'
-#     magenta: '0xff79c6'
-#     cyan:    '0x8be9fd'
-#     white:   '0xbfbfbf'
-# 
-#   # Bright colors
-#   bright:
-#     black:   '0x575b70'
-#     red:     '0xff6e67'
-#     green:   '0x5af78e'
-#     yellow:  '0xf4f99d'
-#     blue:    '0xcaa9fa'
-#     magenta: '0xff92d0'
-#     cyan:    '0x9aedfe'
-#     white:   '0xe6e6e6'
-# 
-#   indexed_colors: []
+    black: '#4e4e4e'  # Arbitrary
+    red: '#ff5370'
+    green: '#c3e88d'
+    yellow: '#ffcb6b'
+    blue: '#82aaff'
+    magenta: '#f07178'  # Pink of the original material theme
+    cyan: '#89ddff'
+    white: '#ffffff'  # Arbitrary
+
+  indexed_colors: []
 
 bell:
   animation: EaseOutExpo
@@ -128,9 +100,6 @@ mouse:
   triple_click: { threshold: 300 }
 
   hide_when_typing: false
-
-  url:
-    modifiers: None
 
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>"

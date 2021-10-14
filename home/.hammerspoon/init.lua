@@ -74,7 +74,7 @@ launchMode:bind({ 'cmd' }, 'e', function() leaveMode() end)
 -- Mapped keys
 launchMode:bind({}, 'a',  function() switchToApp('Calendar.app') end)
 launchMode:bind({}, 'b',  function() switchToApp('Firefox.app') end)
-launchMode:bind({}, 'e',  function() switchToApp('Mail.app') end)
+launchMode:bind({}, 'e',  function() switchToApp('Thunderbird.app') end)
 launchMode:bind({}, 'g',  function() switchToApp('Telegram.app') end)
 launchMode:bind({}, 'n',  function() switchToApp('Bear.app') end)
 launchMode:bind({}, 's',  function() switchToApp('Slack.app') end)
