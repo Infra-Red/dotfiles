@@ -6,4 +6,7 @@
 -- vim.cmd[[colorscheme hybrid]]
 -- ...
 --
-vim.cmd[[colorscheme base16-material]]
+vim.cmd([[
+colorscheme base16-material
+]])
+require 'lspconfig'.pylsp.setup {}

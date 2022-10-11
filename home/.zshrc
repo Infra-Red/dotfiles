@@ -14,7 +14,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 eval "$(pyenv init --path)"
 
 # oh-my-zsh
-plugins=(direnv jump git golang pyenv)
+plugins=(direnv jump git golang pyenv kubectl)
 
 source $ZSH/oh-my-zsh.sh
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -42,12 +42,13 @@ alias crg='credhub get -n'
 
 # Go
 export GOPATH="$HOME"/workspace/go
-export GOROOT="$(greadlink -nf /usr/local/opt/go/libexec)"
+# export GOROOT="$(greadlink -nf /usr/local/opt/go/libexec)"
 export PATH="$GOPATH/bin:${GOROOT}/bin:$PATH"
-export PATH="/usr/local/opt/go@1.15/bin:$PATH"
+export PATH="/usr/local/opt/go@1.18/bin:$PATH"
 
 # Ruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
 
 # Vim
 export EDITOR=nvim
@@ -73,7 +74,7 @@ function todo() { if [[ "$#" -eq 0 ]]; then cat "$TODO"; else echo "• $*" >>"$
 function todone() { sed -i -e "/$*/d" "$TODO"; }
 
 # use fd as default find command to traverse the file system while respecting .gitignore
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+# export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
 #-------------------------------------------------------------------------------
 # SSH Agent
@@ -171,6 +172,7 @@ bbl_env() {
 }
 
 alias ka='f(){ kubectl "$@" --all-namespaces | grep -v kube-system; unset -f f; }; f'
+export PATH="/usr/local/opt/kubernetes-cli@1.22/bin:$PATH"
 
 # FortiVPN
 source "$HOME/.config/openfortivpn/openfortivpn.sh"

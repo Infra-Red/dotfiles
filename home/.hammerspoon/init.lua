@@ -35,25 +35,26 @@ hs.hotkey.bind(mash, '4', function() hs.window.focusedWindow():move(units.Bottom
 hs.hotkey.bind(mash, 'c', function() hs.window.focusedWindow():centerOnScreen(nil, nil, nil) end)
 hs.hotkey.bind(mash, 'z', function() hs.window.focusedWindow():toggleZoom() end)
 hs.hotkey.bind(mash, 'm', function() hs.window.focusedWindow():maximize() end)
-hs.hotkey.bind(mash, 'f', function() hs.window.focusedWindow():setFullScreen(not hs.window.focusedWindow():isFullScreen()) end)
+hs.hotkey.bind(mash, 'f',
+  function() hs.window.focusedWindow():setFullScreen(not hs.window.focusedWindow():isFullScreen()) end)
 
 -------------------------------------------------------------------
 -- Launcher
 
 -- We need to store the reference to the alert window
-appLauncherAlertWindow = nil
+AppLauncherAlertWindow = nil
 
 -- This is the key mode handle
-launchMode = hs.hotkey.modal.new({}, nil, '')
+LaunchMode = hs.hotkey.modal.new({}, nil, '')
 
 -- Leaves the launch mode, returning the keyboard to its normal
 -- state, and closes the alert window, if it's showing
 function leaveMode()
-  if appLauncherAlertWindow ~= nil then
-    hs.alert.closeSpecific(appLauncherAlertWindow, 0)
-    appLauncherAlertWindow = nil
+  if AppLauncherAlertWindow ~= nil then
+    hs.alert.closeSpecific(AppLauncherAlertWindow, 0)
+    AppLauncherAlertWindow = nil
   end
-  launchMode:exit()
+  LaunchMode:exit()
 end
 
 -- So simple, so awesome.
@@ -62,23 +63,41 @@ function switchToApp(app)
   leaveMode()
 end
 
+function openApp(name)
+  local app = hs.application.get(name)
+
+  if app then
+    if app:isFrontmost() then
+      app:hide()
+    else
+      app:mainWindow():focus()
+    end
+  else
+    hs.application.launchOrFocus(name)
+  end
+
+  leaveMode()
+end
+
 -- Enters launch mode.
 hs.hotkey.bind({ 'cmd' }, 'e', function()
-  launchMode:enter()
-  appLauncherAlertWindow = hs.alert.show('App Launcher Mode:\na - Calendar\nb - Browser\ne - Mail\ng - Telegram\ny - Spotify\nn - Bear\ns - Slack\nt - Terminal', 'infinite')
+  LaunchMode:enter()
+  AppLauncherAlertWindow = hs.alert.show('App Launcher Mode:\na - Calendar\nb - Browser\ne - Mail\ng - Telegram\ny - Spotify\nn - Bear\ns - Slack\nt - Terminal'
+    , 'infinite')
 end)
 
 -- When in launch mode, hitting cmd+e again leaves it
-launchMode:bind({ 'cmd' }, 'e', function() leaveMode() end)
+LaunchMode:bind({ 'cmd' }, 'e', function() leaveMode() end)
 
 -- Mapped keys
-launchMode:bind({}, 'a',  function() switchToApp('Calendar.app') end)
-launchMode:bind({}, 'b',  function() switchToApp('Firefox.app') end)
-launchMode:bind({}, 'e',  function() switchToApp('Thunderbird.app') end)
-launchMode:bind({}, 'g',  function() switchToApp('Telegram.app') end)
-launchMode:bind({}, 'n',  function() switchToApp('Bear.app') end)
-launchMode:bind({}, 's',  function() switchToApp('Slack.app') end)
-launchMode:bind({}, 't',  function() switchToApp('Alacritty.app') end)
-launchMode:bind({}, 'y',  function() switchToApp('Spotify.app') end)
-launchMode:bind({}, 'z',  function() switchToApp('zoom.us.app') end)
-launchMode:bind({}, '`',  function() hs.reload(); leaveMode() end)
+LaunchMode:bind({}, 'a', function() openApp('Calendar') end)
+LaunchMode:bind({}, 'b', function() openApp('Firefox') end)
+LaunchMode:bind({}, 'e', function() openApp('Thunderbird') end)
+LaunchMode:bind({}, 'g', function() openApp('Telegram') end)
+LaunchMode:bind({}, 'n', function() openApp('Bear') end)
+LaunchMode:bind({}, 's', function() openApp('Slack') end)
+LaunchMode:bind({}, 't', function() openApp('Alacritty') end)
+LaunchMode:bind({}, 'y', function() openApp('Spotify') end)
+LaunchMode:bind({}, 'v', function() openApp('Visual Studio Code') end)
+LaunchMode:bind({}, 'z', function() openApp('zoom.us') end)
+LaunchMode:bind({}, '`', function() hs.reload(); leaveMode() end)
